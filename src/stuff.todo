@@ -1,0 +1,5 @@
+- Add logging framework : https://github.com/chilts/logfmtr @done
+- Add cls-hooked @done
+- When a reqest starts, add a new instance of the logger with bound information to the context @done
+- Inside the logging framework, use cls-hooked to see if there's a logger instance present. If so, use that, otherwise, use the global logger. @done
+- Add Env.re

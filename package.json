@@ -1,0 +1,24 @@
+{
+  "name": "bs-server",
+  "version": "1.0.0",
+  "scripts": {
+    "clean": "bsb -clean-world",
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w"
+  },
+  "keywords": [
+    "BuckleScript server"
+  ],
+  "author": "Murphy Randle",
+  "license": "MIT",
+  "devDependencies": {
+    "bs-platform": "^5.0.4",
+    "logfmtr": "^1.10.0"
+  },
+  "dependencies": {
+    "@glennsl/bs-json": "^3.0.0",
+    "bs-express": "^0.12.0",
+    "bs-prom": "^1.2.0",
+    "cls-hooked": "^4.2.2"
+  }
+}
