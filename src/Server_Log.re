@@ -13,3 +13,9 @@
 [@bs.module "./logger.js"] external error: 'a => unit = "";
 [@bs.module "./logger.js"] external error2: ('a, 'b) => unit = "";
 [@bs.module "./logger.js"] external error3: ('a, 'b, 'c) => unit = "";
+
+[@bs.module "./logger.js"]
+external middleware:
+  (~addContextFromRequest: Express.Request.t => Js.t('a)=?, unit) =>
+  Express.Middleware.t =
+  "";

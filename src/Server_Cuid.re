@@ -1,0 +1,1 @@
+[@bs.module] external generate: unit => string = "cuid";

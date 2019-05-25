@@ -2,6 +2,7 @@
 'use strict';
 
 var LoggerJs = require("./logger.js");
+var Caml_option = require("bs-platform/lib/js/caml_option.js");
 
 function debug(prim) {
   LoggerJs.debug(prim);
@@ -63,6 +64,10 @@ function error3(prim, prim$1, prim$2) {
   return /* () */0;
 }
 
+function middleware(prim, prim$1) {
+  return LoggerJs.middleware(prim !== undefined ? Caml_option.valFromOption(prim) : undefined);
+}
+
 exports.debug = debug;
 exports.debug2 = debug2;
 exports.debug3 = debug3;
@@ -75,4 +80,5 @@ exports.warn3 = warn3;
 exports.error = error;
 exports.error2 = error2;
 exports.error3 = error3;
+exports.middleware = middleware;
 /* ./logger.js Not a pure module */

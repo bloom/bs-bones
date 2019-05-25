@@ -54,7 +54,7 @@ open Private;
 module Compat = {
   let middlewareFromExpress = (em: Express.Middleware.t): t('a, 'a) =>
     (req, res, a) => {
-      let (p, resolve) = Prom.make();
+      let (p, resolve, _) = Prom.make();
       let next =
         fun
         | Some(err) => {
