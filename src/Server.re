@@ -12,7 +12,7 @@ module Handler = Server_Handler;
 module Middleware = Server_Middleware;
 
 // For generating IDs:
-module Cuid = Server_Cuid;
+module ID = Server_Cuid;
 
 // For general purpose server-side logging:
 module Log = Server_Log;

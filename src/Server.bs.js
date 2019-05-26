@@ -16,7 +16,7 @@ var Handler = 0;
 
 var Middleware = 0;
 
-var Cuid = 0;
+var ID = 0;
 
 var Log = 0;
 
@@ -37,7 +37,7 @@ exports.$$Request = $$Request;
 exports.$$Response = $$Response;
 exports.Handler = Handler;
 exports.Middleware = Middleware;
-exports.Cuid = Cuid;
+exports.ID = ID;
 exports.Log = Log;
 exports.Decode = Decode;
 exports.Env = Env;
