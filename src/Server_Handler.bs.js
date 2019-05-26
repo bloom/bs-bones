@@ -2,7 +2,7 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
-var Express = require("bs-express/src/Express.js");
+var Express = require("./Express.bs.js");
 var Server_Middleware = require("./Server_Middleware.bs.js");
 
 function Make(Cfg) {

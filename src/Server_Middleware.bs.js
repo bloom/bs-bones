@@ -5,7 +5,7 @@ var Prom = require("bs-prom/src/Prom.bs.js");
 var Util = require("util");
 var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
-var Express = require("bs-express/src/Express.js");
+var Express = require("./Express.bs.js");
 var Express$1 = require("express");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var Json_decode = require("@glennsl/bs-json/src/Json_decode.bs.js");
@@ -26,7 +26,7 @@ function _middlewareToExpressMiddleware(handler) {
                                   return param[0];
                                 })), (function (err) {
                               console.log("An unexpected error was thrown inside of the handler", err);
-                              return Prom.wrap(Express.$$Response[/* sendStatus */7](/* InternalServerError */47)(res));
+                              return Prom.wrap(Express.$$Response[/* sendStatus */6](/* InternalServerError */47)(res));
                             }));
               }));
 }
@@ -49,7 +49,7 @@ function middlewareFromExpress(em, req, res, a) {
   var next = function (param) {
     if (param !== undefined) {
       console.log("Failure from wrapped express middleware", Caml_option.valFromOption(param));
-      return Curry._1(resolve, /* Error */Block.__(1, [Express.$$Response[/* sendStatus */7](/* InternalServerError */47)(res)]));
+      return Curry._1(resolve, /* Error */Block.__(1, [Express.$$Response[/* sendStatus */6](/* InternalServerError */47)(res)]));
     } else {
       return Curry._1(resolve, /* Ok */Block.__(0, [a]));
     }
@@ -89,7 +89,7 @@ function requireQuery(decoder, req, res, ctxBuilder) {
   }
   catch (raw_e){
     var e = Caml_js_exceptions.internalToOCamlException(raw_e);
-    return Prom.wrapError(Express.$$Response[/* sendString */2]("Could not decode expected params from query string:" + toString(e), Express.$$Response[/* status */9](/* BadRequest */19)(res)));
+    return Prom.wrapError(Express.$$Response[/* status */7](/* BadRequest */19)(res).send("Could not decode expected params from query string:" + toString(e)));
   }
   if (exit === 1) {
     return Prom.wrapOk(Curry._1(ctxBuilder, thing));
@@ -98,7 +98,7 @@ function requireQuery(decoder, req, res, ctxBuilder) {
 }
 
 function requireParams(decoder, req, res, ctxBuilder) {
-  var paramsAsJson = Express.$$Request[/* params */0](req);
+  var paramsAsJson = req.params;
   var exit = 0;
   var thing;
   try {
@@ -107,7 +107,7 @@ function requireParams(decoder, req, res, ctxBuilder) {
   }
   catch (raw_e){
     var e = Caml_js_exceptions.internalToOCamlException(raw_e);
-    return Prom.wrapError(Express.$$Response[/* sendString */2]("Could not decode expected params from the URL path:" + toString(e), Express.$$Response[/* status */9](/* BadRequest */19)(res)));
+    return Prom.wrapError(Express.$$Response[/* status */7](/* BadRequest */19)(res).send("Could not decode expected params from the URL path:" + toString(e)));
   }
   if (exit === 1) {
     return Prom.wrapOk(Curry._1(ctxBuilder, thing));
@@ -116,20 +116,21 @@ function requireParams(decoder, req, res, ctxBuilder) {
 }
 
 function requireBody(decoder, req, res, ctxBuilder) {
-  var match = Express.$$Request[/* bodyJSON */3](req);
-  if (match !== undefined) {
-    var rawBodyJson = Caml_option.valFromOption(match);
+  var match = req.body;
+  if (match == null) {
+    return Prom.wrapError(Express.$$Response[/* status */7](/* BadRequest */19)(res).send("Body Required"));
+  } else {
     var exit = 0;
     var decodedBody;
     try {
-      decodedBody = Curry._1(decoder, rawBodyJson);
+      decodedBody = Curry._1(decoder, match);
       exit = 1;
     }
     catch (raw_exn){
       var exn = Caml_js_exceptions.internalToOCamlException(raw_exn);
       if (exn[0] === Json_decode.DecodeError) {
-        console.log("Error decoding expected body", rawBodyJson);
-        return Prom.wrapError(Express.$$Response[/* sendString */2]("Error decoding body: " + exn[1], Express.$$Response[/* status */9](/* BadRequest */19)(res)));
+        console.log("Error decoding expected body", match);
+        return Prom.wrapError(Express.$$Response[/* status */7](/* BadRequest */19)(res).send("Error decoding body: " + exn[1]));
       } else {
         throw exn;
       }
@@ -138,17 +139,15 @@ function requireBody(decoder, req, res, ctxBuilder) {
       return Prom.wrapOk(Curry._1(ctxBuilder, decodedBody));
     }
     
-  } else {
-    return Prom.wrapError(Express.$$Response[/* sendString */2]("Body Required", Express.$$Response[/* status */9](/* BadRequest */19)(res)));
   }
 }
 
 function requireToken(req, res, ctxBuilder) {
-  var header = Express.$$Request[/* get */22]("Authorization", req);
-  if (header !== undefined) {
-    return Prom.wrapOk(Curry._1(ctxBuilder, header));
+  var header = req.get("Authorization");
+  if (header == null) {
+    return Prom.wrapError(Express.$$Response[/* status */7](/* Unauthorized */20)(res).send("Must include an Authorization header."));
   } else {
-    return Prom.wrapError(Express.$$Response[/* sendString */2]("Must include an Authorization header.", Express.$$Response[/* status */9](/* Unauthorized */20)(res)));
+    return Prom.wrapOk(Curry._1(ctxBuilder, header));
   }
 }
 

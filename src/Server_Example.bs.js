@@ -3,18 +3,19 @@
 
 var Prom = require("bs-prom/src/Prom.bs.js");
 var Curry = require("bs-platform/lib/js/curry.js");
-var Express = require("bs-express/src/Express.js");
+var Express = require("./Express.bs.js");
+var Express$1 = require("express");
 var Server_Log = require("./Server_Log.bs.js");
 var Server_Handler = require("./Server_Handler.bs.js");
 var Server_Middleware = require("./Server_Middleware.bs.js");
 
-var app = Express.App[/* make */17](/* () */0);
+var app = Express$1();
 
 Express.App[/* use */0](app, Server_Log.middleware(undefined, /* () */0));
 
 function handler(_req, res, param) {
   Server_Log.warn("Inside a handler");
-  return Prom.wrap(Express.$$Response[/* sendString */2]("Heeellllllloooooooooooooo", Express.$$Response[/* status */9](/* Ok */0)(res)));
+  return Prom.wrap(Express.$$Response[/* status */7](/* Ok */0)(res).send("Heeellllllloooooooooooooo"));
 }
 
 var Health = Server_Handler.Make(/* module */[
@@ -28,9 +29,9 @@ var router = Express.Router[/* make */17](undefined, undefined, undefined, /* ()
 
 Curry._1(Health[/* use */0], router);
 
-Express.App[/* useRouter */19](app, router);
+Express.App[/* useRouter */17](app, router);
 
-Express.App[/* listen */21](app, 3000, (function (param) {
+Express.App[/* listen */19](app, 3000, (function (param) {
         return Server_Log.info("server started");
       }), /* () */0);
 
