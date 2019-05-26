@@ -10,12 +10,12 @@ function debug(prim) {
 }
 
 function debug2(prim, prim$1) {
-  LoggerJs.debug2(prim, prim$1);
+  LoggerJs.debug(prim, prim$1);
   return /* () */0;
 }
 
 function debug3(prim, prim$1, prim$2) {
-  LoggerJs.debug3(prim, prim$1, prim$2);
+  LoggerJs.debug(prim, prim$1, prim$2);
   return /* () */0;
 }
 
@@ -25,12 +25,12 @@ function info(prim) {
 }
 
 function info2(prim, prim$1) {
-  LoggerJs.info2(prim, prim$1);
+  LoggerJs.info(prim, prim$1);
   return /* () */0;
 }
 
 function info3(prim, prim$1, prim$2) {
-  LoggerJs.info3(prim, prim$1, prim$2);
+  LoggerJs.info(prim, prim$1, prim$2);
   return /* () */0;
 }
 
@@ -40,12 +40,12 @@ function warn(prim) {
 }
 
 function warn2(prim, prim$1) {
-  LoggerJs.warn2(prim, prim$1);
+  LoggerJs.warn(prim, prim$1);
   return /* () */0;
 }
 
 function warn3(prim, prim$1, prim$2) {
-  LoggerJs.warn3(prim, prim$1, prim$2);
+  LoggerJs.warn(prim, prim$1, prim$2);
   return /* () */0;
 }
 
@@ -55,12 +55,12 @@ function error(prim) {
 }
 
 function error2(prim, prim$1) {
-  LoggerJs.error2(prim, prim$1);
+  LoggerJs.error(prim, prim$1);
   return /* () */0;
 }
 
 function error3(prim, prim$1, prim$2) {
-  LoggerJs.error3(prim, prim$1, prim$2);
+  LoggerJs.error(prim, prim$1, prim$2);
   return /* () */0;
 }
 
