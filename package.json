@@ -1,5 +1,5 @@
 {
-  "name": "bs-server",
+  "name": "bs-bones",
   "version": "1.0.0",
   "scripts": {
     "clean": "bsb -clean-world",
