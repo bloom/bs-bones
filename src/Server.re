@@ -1,13 +1,23 @@
 // For when you want to access the underlying Express isntance:
-module Express = Express;
+module Express = {
+  include Express;
+};
 
 // For working with apps and routers:
-module App = Express.App;
-module Router = Express.Router;
+module App = {
+  include Express.App;
+};
+module Router = {
+  include Express.Router;
+};
 
 // For working with requests:
-module Request = Express.Request;
-module Response = Express.Response;
+module Request = {
+  include Express.Request;
+};
+module Response = {
+  include Express.Response;
+};
 module Handler = Server_Handler;
 module Middleware = Server_Middleware;
 
